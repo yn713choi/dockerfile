@@ -1,0 +1,14 @@
+FROM jenkins/jenkins:2.387.2-lts-jdk11
+#MAINTAINER 유저정보
+USER root
+RUN apt-get update
+
+# aws cli 설치
+RUN apt install python3-pip -y
+RUN pip3 install awscli — upgrade
+
+# aws ssm plugin 설치
+RUN curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_arm64/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+RUN dpkg -i session-manager-plugin.deb
+
+# docker run -d -p 8080:8080 -v /jenkins:/var/jenkins_home --name jenkins -u root jenkins/jenkins:2.387.2-lts-jdk11
